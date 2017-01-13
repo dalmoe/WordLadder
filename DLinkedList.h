@@ -13,9 +13,7 @@ class DLinkedList{
     ~DLinkedList();
     
     ListNode* getListHead();
-    void setListHead();
     ListNode* getListTail();
-    void setListTail();
     int getSize();
     
     void insertAt(ListNode newNode, int pos);

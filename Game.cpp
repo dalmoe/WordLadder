@@ -21,5 +21,8 @@ int main(){
     list.enque(node2);
     cout << node.getLadder().at(0) << endl;
     cout << node.getLadder().at(1) << endl;
-    cout << list.getListTail()->m_ladder.at(0) << endl;
+
+    list.deque();
+
+    //cout << list.getListHead()->getLadder().at(0);
 }

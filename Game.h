@@ -11,7 +11,7 @@ using namespace std;
 
 class Game{
     Game();
-    
+
     void init();
     int main();
 };

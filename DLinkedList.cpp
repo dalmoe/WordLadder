@@ -28,26 +28,26 @@ int DLinkedList::getSize(){
     return m_size;
 }
 
-void DLinkedList::enque(ListNode newNode){
+void DLinkedList::enque(ListNode &newNode){
     if(m_pListHead == NULL){
         m_pListHead = &newNode;
         m_pListTail = &newNode;
     }
     else{
-        m_pListTail->setTail(&newNode);
-        newNode.setHead(m_pListTail);
+        ListNode* prevTail = m_pListTail;
+        prevTail->m_pTail = &newNode;
+        newNode.m_pHead = prevTail;
         m_pListTail = &newNode;
     }
     m_size++;
 }
 
 void DLinkedList::deque(){
-    vector<string> output(m_pListTail->m_ladder);
-    if(output.size() > 0){
-        /*for(int i = 0; i < output.size(); i++){
-            cout << output.at(i);
-        }*/
-        cout << output.at(0);
+     //vector<string> output(m_pListTail->m_ladder);
+    if(m_pListTail->getLadder().size() > 0){
+        for(int i = 0; i < m_pListTail->getLadder().size(); i++){
+            cout << m_pListTail->getLadder().at(i) << endl;
+        }
     }
 }
 

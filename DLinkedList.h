@@ -11,15 +11,15 @@ class DLinkedList{
    public:
     DLinkedList();
     ~DLinkedList();
-    
+
     ListNode* getListHead();
     ListNode* getListTail();
     int getSize();
-    
+
     void insertAt(ListNode newNode, int pos);
-    void enque(ListNode newNode);
+    void enque(ListNode &newNode);
     void deque();
-    
+
    private:
     int m_size;
     ListNode* m_pListHead;

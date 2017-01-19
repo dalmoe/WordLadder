@@ -38,12 +38,16 @@ void DLinkedList::enque(ListNode newNode){
         newNode.setHead(m_pListTail);
         m_pListTail = &newNode;
     }
+    m_size++;
 }
 
 void DLinkedList::deque(){
-    vector<string> output = m_pListTail->getLadder();
-    for(int i = 0; i < output.size(); i++){
-        cout << output.at(i);
+    vector<string> output(m_pListTail->m_ladder);
+    if(output.size() > 0){
+        /*for(int i = 0; i < output.size(); i++){
+            cout << output.at(i);
+        }*/
+        cout << output.at(0);
     }
 }
 

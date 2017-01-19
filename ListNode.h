@@ -8,6 +8,8 @@ using namespace std;
 
 class ListNode{
     public:
+     vector<string> m_ladder;
+     
       ListNode(vector<string> ladder, ListNode* tail = NULL, ListNode* head = NULL);
        
         vector<string> getLadder();
@@ -17,10 +19,11 @@ class ListNode{
         void setLadder(vector<string> newLadder);
         void setTail(ListNode* newTail);
         void setHead(ListNode* newHead);
+        
       
     private:
         ListNode* m_pTail;
         ListNode* m_pHead;
-        vector<string> m_ladder;
+       
 };
 #endif //LISTNODE_H

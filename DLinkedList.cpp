@@ -29,9 +29,15 @@ int DLinkedList::getSize(){
 }
 
 void DLinkedList::enque(ListNode newNode){
-    m_pListTail->setTail(&newNode);
-    newNode.setHead(m_pListTail);
-    m_pListTail = &newNode;
+    if(m_pListHead == NULL){
+        m_pListHead = &newNode;
+        m_pListTail = &newNode;
+    }
+    else{
+        m_pListTail->setTail(&newNode);
+        newNode.setHead(m_pListTail);
+        m_pListTail = &newNode;
+    }
 }
 
 void DLinkedList::deque(){

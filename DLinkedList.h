@@ -19,6 +19,7 @@ class DLinkedList{
     void insertAt(ListNode newNode, int pos);
     void enque(ListNode &newNode);
     void deque();
+    ListNode* next();
 
    private:
     int m_size;

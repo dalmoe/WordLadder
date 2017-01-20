@@ -10,10 +10,16 @@
 using namespace std;
 
 class Game{
-    Game();
+    public:
+        //Game();
 
-    void init();
-    int main();
+        void init();
+        void parseDict();
+        int main();
+        void play(string word1, string word2);
+
+    private:
+        vector<string> m_dictionary;
 };
 
 #endif // GAME_H

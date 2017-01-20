@@ -32,6 +32,7 @@ void DLinkedList::enque(ListNode &newNode){
     if(m_pListHead == NULL){
         m_pListHead = &newNode;
         m_pListTail = &newNode;
+        m_pCurrentNode = m_pListHead;
     }
     else{
         ListNode* prevTail = m_pListTail;
@@ -61,4 +62,10 @@ void DLinkedList::insertAt(ListNode newNode, int pos){
     newNode.setHead(m_pCurrentNode->getHead());
     newNode.setTail(m_pCurrentNode);
     m_pCurrentNode->setTail(&newNode);
+}
+
+ListNode* DLinkedList::next(){
+    ListNode* tmp = m_pCurrentNode;
+    m_pCurrentNode = m_pCurrentNode->getTail();
+    return tmp;
 }

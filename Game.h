@@ -11,7 +11,7 @@ using namespace std;
 
 class Game{
     public:
-        //Game();
+        Game();
 
         void init();
         void parseDict();

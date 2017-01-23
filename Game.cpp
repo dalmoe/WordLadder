@@ -8,6 +8,9 @@
 
 using namespace std;
 
+Game::Game(){
+    parseDict();
+}
 void Game::parseDict(){
     string str;
     //vector<string> vect;
@@ -28,20 +31,54 @@ void Game::play(string word1, string word2){
     DLinkedList list;
     vector<string> tmpVect;
     tmpVect.push_back(word1);
-    ListNode* tmpNode;
-    tmpNode->setLadder(tmpVect);
-    list.enque(*tmpNode);
-    while(!done){
-        if(word2.compare(list.getListTail()->getLadder().at(list.getListTail()->getLadder().size() - 1)) == 0){
-            done = true;
-        }
-        else{
-            tmpNode = list.next();
+    ListNode currentNode(tmpVect);
+    ListNode tmpNode(currentNode);
+    vector<string> newVect;
+    int test = 0;
+    //tmpNode->m_ladder = tmpVect;
+    list.enque(currentNode);
+    int diffs = 0;
+    while(!done) {
+        //if(word2.compare(list.getListTail()->getLadder().at(list.getListTail()->getLadder().size() - 1)) == 0){
+            //done = true;
+        //}
+        //else{
+            if(list.getSize() > 1)
+                //tmpNode = currentNode.getHead();
+                currentNode = list.next();
+            tmpVect = tmpNode.getLadder();
+            newVect = tmpVect;
             for(int i = 0; i < m_dictionary.size(); i++){
+                newVect = tmpVect;
+                if(tmpVect.at(tmpVect.size() - 1).length() + 1 == m_dictionary.at(i).length()){
+                    string tmp1 = tmpVect.at(tmpVect.size() - 1);
+                    string tmp2 = m_dictionary.at(i);
+                    tmp2 = tmp2.substr(0, tmp2.length() - 1);
 
+                    for(int j = 0; j < m_dictionary.at(i).length(); j++){
+                        if(tmp1[j] != tmp2[j]){
+                            diffs++;
+                        }
+                    }
+                    if(diffs == 1){
+                        if(tmp2 == word2){
+                            newVect.push_back(tmp2);
+                            //tmpNode.setLadder(newVect);
+                            list.enque(tmpNode);
+                            list.deque();
+                            done = true;
+                        }
+                    newVect.push_back(tmp2);
+                    tmpNode.setLadder(newVect);
+                    list.enque(tmpNode);
+                    }
+                    diffs = 0;
+                }
             }
-        }
+        //}
+
     }
+    //list.deque();
 }
 //int main(){
     /*vector<string> v;

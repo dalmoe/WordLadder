@@ -8,6 +8,7 @@ using namespace std;
 
 class ListNode{
     public:
+    ListNode* m_pTail;
      vector<string> m_ladder;
 
       ListNode(vector<string> ladder, ListNode* tail = NULL, ListNode* head = NULL);
@@ -22,7 +23,7 @@ class ListNode{
 
 
     //private:
-        ListNode* m_pTail;
+
         ListNode* m_pHead;
 
 };

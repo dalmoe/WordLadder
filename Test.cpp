@@ -7,7 +7,7 @@ using namespace std;
 
 int main(){
     Game g;
-    g.play("dan", "cat");
+    g.play("happily", "angrily");
 
 }
 

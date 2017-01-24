@@ -28,7 +28,7 @@ void Game::parseDict(){
 }
 
 void Game::play(string word1, string word2){
-    bool done = false;
+    /*bool done = false;
     DLinkedList list;
     vector<string> tmpVect;
     tmpVect.push_back(word1);
@@ -79,7 +79,63 @@ void Game::play(string word1, string word2){
         //}
 
     }
-    //list.deque();
+    //list.deque();*/
+
+    bool done = false;
+    DLinkedList list;
+    vector<string> loopVect;
+    vector<string> currentVect;
+    loopVect.push_back(word1);
+    currentVect.push_back(word1);
+    ListNode* currentNode;
+    int diffs = 0;
+    vector<string> sameSize;
+
+    list.enque(currentVect);
+    currentNode = list.getListHead();
+    for(int i = 0; i < m_dictionary.size(); i++){
+        if(m_dictionary.at(i).length() == word1.length() + 1){
+            sameSize.push_back(m_dictionary.at(i));
+        }
+    }
+    while(!done){
+        if(list.getSize() > 1){
+            currentNode = list.next();
+            currentVect = currentNode-> m_ladder;
+        }
+        //currentVect = *loopVect;
+
+        for(int i = 0; i < sameSize.size(); i++){
+            diffs = 0;
+            //currentVect = loopVect;
+            //if(loopVect.at(loopVect.size() - 1).length() + 1 == sameSize.at(i).length()){
+                string tmp1 = currentVect.at(currentVect.size() - 1);
+                string tmp2 = sameSize.at(i);
+                tmp2 = tmp2.substr(0, tmp2.length() - 1);
+
+                for(int j = 0; j < sameSize.at(i).length(); j++){
+                    if(tmp1[j] != tmp2[j]){
+                        diffs++;
+                    }
+                }
+                if(diffs == 1){
+                    if(tmp2 == word2){
+                        currentVect.push_back(tmp2);
+                        list.enque(currentVect);
+                        currentVect.pop_back();
+                        list.deque();
+                        done = true;
+                    }
+                    else{
+                    currentVect.push_back(tmp2);
+                    list.enque(currentVect);
+                    currentVect.pop_back();
+                    }
+                }
+
+           // }
+        }
+    }
 }
 /*int main(){
     /*vector<string> v;

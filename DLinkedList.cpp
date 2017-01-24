@@ -29,18 +29,18 @@ int DLinkedList::getSize(){
 }
 
 void DLinkedList::enque(vector<string> vect){
-    ListNode newNode(vect);
-    
+    ListNode *newNode = new ListNode(vect);
+
     if(m_pListHead == NULL){
-        m_pListHead = &newNode;
-        m_pListTail = &newNode;
+        m_pListHead = newNode;
+        m_pListTail = newNode;
         m_pCurrentNode = m_pListHead;
     }
     else{
         ListNode* prevTail = m_pListTail;
-        prevTail->m_pTail = &newNode;
-        newNode.m_pHead = prevTail;
-        m_pListTail = &newNode;
+        prevTail->m_pTail = newNode;
+        newNode->m_pHead = prevTail;
+        m_pListTail = newNode;
     }
     m_size++;
 }

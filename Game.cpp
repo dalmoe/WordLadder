@@ -106,13 +106,14 @@ void Game::play(string word1, string word2){
         //currentVect = *loopVect;
 
         for(int i = 0; i < sameSize.size(); i++){
-            diffs = 0;
-            //currentVect = loopVect;
-            //if(loopVect.at(loopVect.size() - 1).length() + 1 == sameSize.at(i).length()){
+            if(sameSize.at(i) != ""){
+                diffs = 0;
+                //currentVect = loopVect;
+                //if(loopVect.at(loopVect.size() - 1).length() + 1 == sameSize.at(i).length()){
                 string tmp1 = currentVect.at(currentVect.size() - 1);
                 string tmp2 = sameSize.at(i);
                 tmp2 = tmp2.substr(0, tmp2.length() - 1);
-
+    
                 for(int j = 0; j < sameSize.at(i).length(); j++){
                     if(tmp1[j] != tmp2[j]){
                         diffs++;
@@ -130,29 +131,10 @@ void Game::play(string word1, string word2){
                     currentVect.push_back(tmp2);
                     list.enque(currentVect);
                     currentVect.pop_back();
+                    sameSize.at(i) = "";
                     }
                 }
-
-           // }
+            }
         }
     }
 }
-/*int main(){
-    /*vector<string> v;
-    vector<string> v2;
-    v.push_back("Hi");
-    v.push_back("Bye");
-    v2.push_back("Hello");
-    v2.push_back("Goodbye");
-    DLinkedList list;
-    ListNode node(v);
-    ListNode node2(v2);
-    list.enque(node);
-    list.enque(node2);
-    cout << node.getLadder().at(0) << endl;
-    cout << node.getLadder().at(1) << endl;
-
-    list.deque();*/
-
-    //cout << list.getListHead()->getLadder().at(0);
-//}

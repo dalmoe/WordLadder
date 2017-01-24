@@ -1,10 +1,10 @@
 all: WordLadder
 
 WordLadder: ListNode.o TestLadder.o DLinkedList.o Game.o Test.o 
-	g++ ListNode.o TestLadder.o DLinkedList.o Game.o Test.o -o WordLadder
+	g++ ListNode.o TestLadder.o DLinkedList.o Game.o Test.o -o Test.cpp.o
 	
 debug:ListNode.o TestLadder.o DLinkedList.o Game.o Test.o 
-	g++ -ggdb3 -o0 ListNode.o TestLadder.o DLinkedList.o Game.o Test.o -o Test.cpp.o
+	g++ -ggdb3 -O0 ListNode.o TestLadder.o DLinkedList.o Game.o Test.o -o Test.cpp.o
 	
 ListNode.o: ListNode.cpp ListNode.h
 	g++ -c ListNode.cpp
@@ -22,4 +22,4 @@ Test.o: Test.cpp
 	g++ -c Test.cpp
 
 clean:
-	rm *o WordLadder
+	rm *o 

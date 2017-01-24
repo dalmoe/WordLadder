@@ -28,7 +28,9 @@ int DLinkedList::getSize(){
     return m_size;
 }
 
-void DLinkedList::enque(ListNode newNode){
+void DLinkedList::enque(vector<string> vect){
+    ListNode newNode(vect);
+    
     if(m_pListHead == NULL){
         m_pListHead = &newNode;
         m_pListTail = &newNode;
@@ -64,7 +66,7 @@ void DLinkedList::insertAt(ListNode newNode, int pos){
     m_pCurrentNode->setTail(&newNode);
 }
 
-ListNode DLinkedList::next(){
+ListNode* DLinkedList::next(){
     m_pCurrentNode = m_pCurrentNode->m_pTail;
-    return *m_pCurrentNode;
+    return m_pCurrentNode;
 }

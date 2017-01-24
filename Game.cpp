@@ -11,6 +11,7 @@ using namespace std;
 Game::Game(){
     parseDict();
 }
+
 void Game::parseDict(){
     string str;
     //vector<string> vect;
@@ -31,12 +32,12 @@ void Game::play(string word1, string word2){
     DLinkedList list;
     vector<string> tmpVect;
     tmpVect.push_back(word1);
-    ListNode currentNode(tmpVect);
-    ListNode tmpNode(currentNode);
+    ListNode* currentNode;
+    //ListNode tmpNode(currentNode);
     vector<string> newVect;
     int test = 0;
     //tmpNode->m_ladder = tmpVect;
-    list.enque(currentNode);
+    list.enque(newVect);
     int diffs = 0;
     while(!done) {
         //if(word2.compare(list.getListTail()->getLadder().at(list.getListTail()->getLadder().size() - 1)) == 0){
@@ -46,7 +47,7 @@ void Game::play(string word1, string word2){
             if(list.getSize() > 1)
                 //tmpNode = currentNode.getHead();
                 currentNode = list.next();
-            tmpVect = tmpNode.getLadder();
+            tmpVect = currentNode->getLadder();
             newVect = tmpVect;
             for(int i = 0; i < m_dictionary.size(); i++){
                 newVect = tmpVect;
@@ -64,13 +65,13 @@ void Game::play(string word1, string word2){
                         if(tmp2 == word2){
                             newVect.push_back(tmp2);
                             //tmpNode.setLadder(newVect);
-                            list.enque(tmpNode);
+                            list.enque(newVect);
                             list.deque();
                             done = true;
                         }
                     newVect.push_back(tmp2);
-                    tmpNode.setLadder(newVect);
-                    list.enque(tmpNode);
+                    //tmpNode.setLadder(newVect);
+                    list.enque(newVect);
                     }
                     diffs = 0;
                 }
@@ -80,7 +81,7 @@ void Game::play(string word1, string word2){
     }
     //list.deque();
 }
-//int main(){
+/*int main(){
     /*vector<string> v;
     vector<string> v2;
     v.push_back("Hi");

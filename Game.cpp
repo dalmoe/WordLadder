@@ -90,7 +90,12 @@ void Game::play(string word1, string word2){
     ListNode* currentNode;
     int diffs = 0;
     vector<string> sameSize;
+    int newWords = 0;
 
+    if(word1.length() != word2.length()){
+        cout << "Word ladders can only be built with words of the same length." << endl;
+        return;
+    }
     list.enque(currentVect);
     currentNode = list.getListHead();
     for(int i = 0; i < m_dictionary.size(); i++){
@@ -101,6 +106,10 @@ void Game::play(string word1, string word2){
     while(!done){
         if(list.getSize() > 1){
             currentNode = list.next();
+            if(currentNode == NULL){
+                cout << "No Solution"<< endl;
+                return;
+            }
             currentVect = currentNode-> m_ladder;
         }
         //currentVect = *loopVect;
@@ -113,7 +122,7 @@ void Game::play(string word1, string word2){
                 string tmp1 = currentVect.at(currentVect.size() - 1);
                 string tmp2 = sameSize.at(i);
                 tmp2 = tmp2.substr(0, tmp2.length() - 1);
-    
+
                 for(int j = 0; j < sameSize.at(i).length(); j++){
                     if(tmp1[j] != tmp2[j]){
                         diffs++;
@@ -132,9 +141,14 @@ void Game::play(string word1, string word2){
                     list.enque(currentVect);
                     currentVect.pop_back();
                     sameSize.at(i) = "";
+                    newWords++;
                     }
                 }
             }
+        }
+        if(newWords == 0){
+            cout << "No words exist for " << word1 <<"." << endl;
+            return;
         }
     }
 }

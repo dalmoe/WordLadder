@@ -5,18 +5,24 @@
 #include <iostream>
 #include "ListNode.h"
 #include <fstream>
-
+#include <cstdlib>
+#include <ctime>
 using namespace std;
-
+//Constructor creates Game object and calls parseDict()
 Game::Game(){
     parseDict();
 }
 
+Game::Game(string file){
+    parseDict(file);
+}
+
+//Parses dictionary.txt stores each word in m_dictionary
 void Game::parseDict(){
     string str;
-    //vector<string> vect;
     ifstream in("dictionary.txt");
     if(in.is_open()){
+        //grabs each line of the file and stores them at the current end of the vector
         while(getline(in, str)){
             m_dictionary.push_back(str);
         }
@@ -24,118 +30,100 @@ void Game::parseDict(){
     else{
         cout << "Unable to open file." << endl;
     }
-    //return vect;
 }
 
-void Game::play(string word1, string word2){
-    /*bool done = false;
-    DLinkedList list;
-    vector<string> tmpVect;
-    tmpVect.push_back(word1);
-    ListNode* currentNode;
-    //ListNode tmpNode(currentNode);
-    vector<string> newVect;
-    int test = 0;
-    //tmpNode->m_ladder = tmpVect;
-    list.enque(newVect);
-    int diffs = 0;
-    while(!done) {
-        //if(word2.compare(list.getListTail()->getLadder().at(list.getListTail()->getLadder().size() - 1)) == 0){
-            //done = true;
-        //}
-        //else{
-            if(list.getSize() > 1)
-                //tmpNode = currentNode.getHead();
-                currentNode = list.next();
-            tmpVect = currentNode->getLadder();
-            newVect = tmpVect;
-            for(int i = 0; i < m_dictionary.size(); i++){
-                newVect = tmpVect;
-                if(tmpVect.at(tmpVect.size() - 1).length() + 1 == m_dictionary.at(i).length()){
-                    string tmp1 = tmpVect.at(tmpVect.size() - 1);
-                    string tmp2 = m_dictionary.at(i);
-                    tmp2 = tmp2.substr(0, tmp2.length() - 1);
-
-                    for(int j = 0; j < m_dictionary.at(i).length(); j++){
-                        if(tmp1[j] != tmp2[j]){
-                            diffs++;
-                        }
-                    }
-                    if(diffs == 1){
-                        if(tmp2 == word2){
-                            newVect.push_back(tmp2);
-                            //tmpNode.setLadder(newVect);
-                            list.enque(newVect);
-                            list.deque();
-                            done = true;
-                        }
-                    newVect.push_back(tmp2);
-                    //tmpNode.setLadder(newVect);
-                    list.enque(newVect);
-                    }
-                    diffs = 0;
-                }
-            }
-        //}
-
+//parses file specified for the dictionary
+void Game::parseDict(string file){
+    string str;
+    ifstream in(file.c_str());
+    if(in.is_open()){
+        //grabs each line of the file and stores them at the current end of the vector
+        while(getline(in, str)){
+            m_dictionary.push_back(str);
+        }
     }
-    //list.deque();*/
+    else{
+        cout << "Unable to open file." << endl;
+    }
+    in.close();
+}
 
+//builds a word ladder between word1 and word2
+void Game::play(string word1, string word2){
+    //determines whether or not to stay in while loop
     bool done = false;
+    //Creates Doubly linked list
     DLinkedList list;
-    vector<string> loopVect;
+    //Holds vector of current word ladder
     vector<string> currentVect;
-    loopVect.push_back(word1);
+    //used to determine whether the first word has any matches
+    int newWords = 0;
+    
+    //initializes variables
     currentVect.push_back(word1);
     ListNode* currentNode;
     int diffs = 0;
     vector<string> sameSize;
-    int newWords = 0;
-
+    
+    //Makes sure input words are of the same length
     if(word1.length() != word2.length()){
-        cout << "Word ladders can only be built with words of the same length." << endl;
+        cout << "Word ladders can only be built with words of the same length." << endl << endl;
         return;
     }
+    //Adds initial word to beginning of the list
     list.enque(currentVect);
     currentNode = list.getListHead();
+    //creates a vector of only words the same size as word1 and word2
     for(int i = 0; i < m_dictionary.size(); i++){
         if(m_dictionary.at(i).length() == word1.length() + 1){
             sameSize.push_back(m_dictionary.at(i));
         }
     }
+    //runs until word2 is found, or there are no more possible matches
     while(!done){
+        //moves to the next node in the list if the list has more than just the initial node
         if(list.getSize() > 1){
             currentNode = list.next();
+            //detects if there is no solution
             if(currentNode == NULL){
-                cout << "No Solution"<< endl;
+                cout << "No Solution"<< endl << endl;
                 return;
             }
+            //assigns currentVect to hold the ladder of the current node in the list
             currentVect = currentNode-> m_ladder;
         }
-        //currentVect = *loopVect;
-
+        
+        //checks last word in the current vector against all words in the vector of same-length words
         for(int i = 0; i < sameSize.size(); i++){
+            //checks to see if word that was originally at this location has been used
             if(sameSize.at(i) != ""){
+                //number of differences between the words being compared
                 diffs = 0;
-                //currentVect = loopVect;
-                //if(loopVect.at(loopVect.size() - 1).length() + 1 == sameSize.at(i).length()){
                 string tmp1 = currentVect.at(currentVect.size() - 1);
                 string tmp2 = sameSize.at(i);
                 tmp2 = tmp2.substr(0, tmp2.length() - 1);
-
+                
+                //compares tmp1 and tmp2
                 for(int j = 0; j < sameSize.at(i).length(); j++){
                     if(tmp1[j] != tmp2[j]){
                         diffs++;
                     }
                 }
+                //Executes if the words were only 1 letter apart
                 if(diffs == 1){
+                    //if tmp2 = word2 add the current ladder to the list, print out that ladder, and exit while loop
                     if(tmp2 == word2){
                         currentVect.push_back(tmp2);
                         list.enque(currentVect);
                         currentVect.pop_back();
+                        cout << "Starting word: " << word1 << endl;
+                        cout << "Ending word: " << word2 << endl;
+                        cout << "Ladder: " << endl;
                         list.deque();
+                        cout << endl << endl;
                         done = true;
                     }
+                    //adds current ladder to the end of linked list
                     else{
                     currentVect.push_back(tmp2);
                     list.enque(currentVect);
@@ -146,8 +134,9 @@ void Game::play(string word1, string word2){
                 }
             }
         }
+        //checks if the initial word has any matches
         if(newWords == 0){
-            cout << "No words exist for " << word1 <<"." << endl;
+            cout << "No words exist for " << word1 <<"." << endl << endl;
             return;
         }
     }

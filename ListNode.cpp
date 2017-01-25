@@ -3,12 +3,14 @@
 #include <vector>
 using namespace std;
 
+//Constructor
 ListNode::ListNode(vector<string> ladder, ListNode* tail, ListNode* head){
     m_ladder = ladder;
     m_pTail = tail;
     m_pHead = head;
 }
 
+//Getter and setters
 vector<string> ListNode::getLadder(){
     return m_ladder;
 }

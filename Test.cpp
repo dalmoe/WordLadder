@@ -5,9 +5,8 @@
 
 using namespace std;
 
-int main(){
+/*int main(){
     Game g;
-    g.play("yellow", "purple");
-
-}
+    g.play("fast", "slow");
+}*/
 
